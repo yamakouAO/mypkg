@@ -1,11 +1,12 @@
 name: test 
 on: push 
-jobs: 
-  test: runs-on: ubuntu-22.04 
+jobs:
+  test:
+  runs-on: ubuntu-22.04
   container: ryuichiueda/ubuntu22.04-ros2:latest 
-  steps: 
+  steps:
     - uses: actions/checkout@v3 
-    - name: build and test 
+    - name: build and test
       run: |
        source /opt/ros/humble/setup.bash
        rsync -av ./mypkg/ /root/ros2_ws/src/mypkg/
