@@ -1,13 +1,51 @@
-name: test 
-on: push 
+name: test
+on: push
+
 jobs:
   test:
     runs-on: ubuntu-22.04
-    container: ryuichiueda/ubuntu22.04-ros2:latest 
+    container: ryuichiueda/ubuntu22.04-ros2:latest
+
     steps:
-      - uses: actions/checkout@v2 
-      - name: build and test
+      - uses: actions/checkout@v5
+
+      - name: Inspect ROS in container
+        shell: bash
         run: |
+          set -euxo pipefail
+          cat /etc/os-release || true
+          ls -la /opt/ros || true
+          find /opt/ros -maxdepth 2 -name setup.bash -print || true
+          command -v ros2 || true
+          ros2 --help || true
+
+      - name: Build and test
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          # /root/ros2_ws が無い場合に備えて作る
+          mkdir -p /root/ros2_ws/src/mypkg
           rsync -av ./ /root/ros2_ws/src/mypkg/
+
           cd /root/ros2_ws
+
+          # ROS2環境を明示的に有効化（CIでは.bashrcに頼らない）
+          if [ -d /opt/ros ]; then
+            source /opt/ros/*/setup.bash
+          fi
+
+          # ros2 コマンドが無いなら ros2cli を入れる（ディストロ自動判定）
+          if ! command -v ros2 >/dev/null 2>&1; then
+            DISTRO="$(ls /opt/ros | head -n 1)"
+            apt-get update
+            apt-get install -y "ros-${DISTRO}-ros2cli" "ros-${DISTRO}-ros2launch"
+          fi
+
+          # ビルド
+          colcon build
+          source install/setup.bash
+
+          # あなたのテストを実行
           bash -xv ./src/mypkg/test/test.bash /root
+
