@@ -10,5 +10,14 @@ colcon build
 source $dir/.bashrc
 timeout 10 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
 
+ng () {
+	res=1
+}
+
+res=0
+
 cat /tmp/mypkg.log |
-grep 'Listen: 10'
+grep 'Listen: 10' || ng "$LINENO"
+
+test "${res}" = 0 && echo OK
+exit $res
