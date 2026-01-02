@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # SPDX-FileCopyrightText: 2025 yamakouAO
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -14,7 +13,7 @@ def generate_launch_description():
     minute = LaunchConfiguration('minute')
     second = LaunchConfiguration('second')
 
-    talker = launch_ros.actions.Node(
+    timer = launch_ros.actions.Node(
         package='mypkg',      #パッケージの名前を指定
         executable='timer',  #実行するファイルの指定
         arguments=[hour, minute, second],
@@ -22,12 +21,11 @@ def generate_launch_description():
     listener = launch_ros.actions.Node(
         package='mypkg',
         executable='listener',
-        output='screen'        #ログを端末に出すための設定                                   
+        output='screen'
         )
-
     return launch.LaunchDescription([
         DeclareLaunchArgument('hour', default_value='0'),
-        DeclareLaunchArgument('minute', default_value='0'),
+        DeclareLaunchArgument('minute', default_value='1'),
         DeclareLaunchArgument('second', default_value='0'),
         timer,
         listener]) 
