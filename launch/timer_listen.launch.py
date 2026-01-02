@@ -16,7 +16,7 @@ def generate_launch_description():
 
     talker = launch_ros.actions.Node(
         package='mypkg',      #パッケージの名前を指定
-        executable='talker',  #実行するファイルの指定
+        executable='timer',  #実行するファイルの指定
         arguments=[hour, minute, second],
         )
     listener = launch_ros.actions.Node(
@@ -29,4 +29,5 @@ def generate_launch_description():
         DeclareLaunchArgument('hour', default_value='0'),
         DeclareLaunchArgument('minute', default_value='0'),
         DeclareLaunchArgument('second', default_value='0'),
-        talker, listener]) 
+        timer,
+        listener]) 

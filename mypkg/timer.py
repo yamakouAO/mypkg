@@ -7,7 +7,7 @@ from std_msgs.msg import Int16
 import sys
 
 rclpy.init()
-node = Node("talker")
+node = Node("timer")
 pub = node.create_publisher(Int16, "countup", 10)
 time = int(sys.argv[1])*3600 + int(sys.argv[2])*60 + int(sys.argv[3])
 
