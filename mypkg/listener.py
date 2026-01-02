@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 yamakouAO
+# SPDX-License-Identifier: BSD-3-Clause
+
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int16
@@ -9,8 +12,12 @@ node = Node("listener")
 
 def cb(msg):
     global node
-    node.get_logger().info("Listen: %d" % msg.data)
-
+    if msg.data > 0:
+        node.get_logger().info("Remaining time: %d" % msg.data)
+    elif msg.data == 0:
+        node.get_logger().info("TIME OUT")
+    else:
+        node.get_logger().info("Over time: %d" % msg.data)
 
 def main():
     pub = node.create_subscription(Int16, "countup", cb, 10)
