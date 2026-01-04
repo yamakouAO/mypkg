@@ -1,9 +1,10 @@
 # timerコマンド
 
 ![test](https://github.com/yamakouAO/mypkg/actions/workflows/test.yml/badge.svg)
+###テスト環境
+- Ubuntu 24.04 LTS
 
 ROS2を用いた、タイマーです。
-
 * **timer**: 指定した時間からどれだけ時間が経っているかを計測。
 * **listener**: 指定した時間までの残り時間を表示、指定した時間よりも超過した場合超過時間を表示。
 
