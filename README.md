@@ -10,7 +10,7 @@ ROS2を用いた、タイマーです。
 
 ## 使い方
 ### 実行方法
-* ros2 runで1分タイマーを実行、入力例:０時間１分０秒
+* ros2 runで実行、入力例:０時間１分０秒
 ```
 端末1$ ros2 run mypkg timer 0 1 0
 端末2$ ros2 run mypkg listener
@@ -24,7 +24,7 @@ ROS2を用いた、タイマーです。
 [INFO] [listener]: Over time: -2
 ```
 
-* launchファイルを用いる場合、入力例:０時間１分30秒
+* launchファイルでの実行、入力例:０時間１分30秒
 ```
 $  ros2 launch mypkg timer_listen.launch.py hour:=0 minute:=1 second:=30
 [INFO] [launch]: Default logging verbosity is set to INFO
