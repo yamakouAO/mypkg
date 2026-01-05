@@ -1,15 +1,27 @@
 # timerコマンド
-
 ![test](https://github.com/yamakouAO/mypkg/actions/workflows/test.yml/badge.svg)
 ### テスト環境
 - Ubuntu 22.04 LTS
-### 概要
+
+## 概要
 ROS2を用いた、タイマーです。
-* **timer**: 指定した時間からどれだけ時間が経っているかを計測。
-* **listener**: 指定した時間までの残り時間を **/countup**からメッセージをもらって表示、指定した時間よりも超過した場合超過時間を表示。
+### ノード一覧
+* **timer**
+指定した時間からどれだけ時間が経っているかを計測。
+* **listener**
+ 指定した時間までの残り時間を **/countup**からメッセージをもらって表示、指定した時間よりも超過した場合超過時間を表示。
+### トピック
+* **countup**:型 'std_msgs/msg/Int16` Publisher `timer` Subscriber `listener`
+残り時間を秒で表す．正の値は残り時間，0 はタイムアウト，負の値は超過時間 
 
 ## 使い方
-### 実行方法
+###実行方法
+```
+端末1$ ros2 run mypkg timer <hour> <minute> <second>
+端末2$ ros2 run mypkg listener
+```
+
+### 実行例
 * ros2 runで実行、入力例:０時間１分０秒
 ```
 端末1$ ros2 run mypkg timer 0 1 0
