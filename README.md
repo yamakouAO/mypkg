@@ -4,15 +4,16 @@
 - Ubuntu 22.04 LTS
 
 ## 概要
-ROS2を用いた、タイマーです。
+指定した時間からの残り秒数をトピック `/countup`（`std_msgs/msg/Int16`）として publish するタイマー
+
 ### ノード一覧
 * **timer**  
 指定した時間からどれだけ時間が経っているかを **/countup**にパブリッシュ。
 * **listener**  
  指定した時間までの残り時間を **/countup**からメッセージをもらって表示、指定した時間よりも超過した場合超過時間を表示。
 ### トピック
-* **countup**:` 型 `std_msgs/msg/Int16` Publisher `timer` Subscriber `listener  
-残り時間を秒で表す．正の値は残り時間，0 はタイムアウト，負の値は超過時間 
+* **countup**  
+` 型 `std_msgs/msg/Int16` Publisher `timer` Subscriber `listener   残り時間を秒で表す．正の値は残り時間，負の値は超過時間 
 
 ## 使い方
 ### 実行方法
