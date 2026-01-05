@@ -2,21 +2,31 @@
 
 ![test](https://github.com/yamakouAO/mypkg/actions/workflows/test.yml/badge.svg)
 ### テスト環境
-- Ubuntu 24.04 LTS
+- Ubuntu 22.04 LTS
 ### 概要
 ROS2を用いた、タイマーです。
 * **timer**: 指定した時間からどれだけ時間が経っているかを計測。
-* **listener**: 指定した時間までの残り時間を表示、指定した時間よりも超過した場合超過時間を表示。
+* **listener**: 指定した時間までの残り時間を/countupからメッセージをもらって表示、指定した時間よりも超過した場合超過時間を表示。
 
 ## 使い方
 ### 実行方法
+* ros2 runで1分タイマーを実行:入力は、０時間１分０秒
 ```
-$  ros2 launch mypkg timer_listen.launch.py hour:=0 minute:=1 second:=30
+端末1$ ros2 run mypkg timer 0 1 0
+端末2$ ros2 run mypkg listener
+[INFO] [listener]: Remaining time: 60
+[INFO] [listener]: Remaining time: 59
+[INFO] [listener]: Remaining time: 58
+...
+[INFO] [listener]: Remaining time: 1
+[INFO] [listener]: TIME OUT
+[INFO] [listener]: Over time: -1
+[INFO] [listener]: Over time: -2
 ```
 
-### 出力例
-実行すると、以下のようなログが端末に表示されます。残り時間が表示されます。
+* launchファイルを用いる場合:入力は、０時間１分30秒
 ```
+$  ros2 launch mypkg timer_listen.launch.py hour:=0 minute:=1 second:=30
 [INFO] [launch]: Default logging verbosity is set to INFO
 [INFO] [timer-1]: process started with pid [86606]
 [INFO] [listener-2]: process started with pid [86608]
@@ -32,11 +42,10 @@ $  ros2 launch mypkg timer_listen.launch.py hour:=0 minute:=1 second:=30
 ```
 
 ## 動作環境
-- Ubuntu 24.04 LTS
+- Ubuntu 22.04 LTS
 
 ## ライセンス
 このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます．
-- このパッケージは，[Ryuichi uedaの講義スライド](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025) 由来のコード（© 2025 Ryuichi Ueda）を利用しています．
 - このパッケージのコードは，下記のスライド（CC-BY-SA 4.0 by Ryuichi Ueda）のものを，本人の許可を得て自身の著作としたものです．
 	- [ryuichiueda/my_slides robosys_2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025)
 - © 2025 yamakouAO
